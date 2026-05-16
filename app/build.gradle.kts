@@ -53,4 +53,18 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Retrofit (llamadas a APIs)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    //Convierte Obj Json -> Kotlin
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // ViewModel (Guardado y manejo d datos)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    // Coroutines ( Async)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    //Cargar imagenes de internet
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
