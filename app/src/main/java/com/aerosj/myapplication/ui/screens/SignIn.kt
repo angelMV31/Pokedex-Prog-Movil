@@ -22,9 +22,10 @@ import com.aerosj.myapplication.ui.components.*
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavHostController) {
 
     val state = remember { mutableStateOf("") }
 
@@ -117,8 +118,10 @@ fun SignInScreen() {
 }
 
 
-@Composable
+/*@Composable
 @Preview(showBackground = true, showSystemUi = false)
 fun SignInScreenPreview(){
     SignInScreen()
-}
+}*/
+
+annotation class SignIn
