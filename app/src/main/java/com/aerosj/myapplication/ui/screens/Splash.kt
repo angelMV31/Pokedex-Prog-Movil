@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,10 +18,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.aerosj.myapplication.R
+import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(navController: NavHostController) {
+
+    LaunchedEffect(Unit) {
+        delay(2000)
+        navController.navigate("signin") {
+            popUpTo("splash") { inclusive = true } // evita volver al splash
+        }
+    }
+
     Box(
         modifier = Modifier.fillMaxSize()
             .background(colorResource(R.color.white)),
@@ -55,8 +66,10 @@ fun SplashScreen() {
 }
 
 
-@Composable
+/*@Composable
 @Preview(showBackground = true, showSystemUi = false)
 fun SplashScreenPreview(){
     SplashScreen()
-}
+}*/
+
+annotation class Splash
