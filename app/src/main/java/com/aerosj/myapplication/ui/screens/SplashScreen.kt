@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.aerosj.myapplication.R
 import kotlinx.coroutines.delay
 
@@ -66,10 +67,10 @@ fun SplashScreen(navController: NavHostController) {
 }
 
 
-/*@Composable
+@Composable
 @Preview(showBackground = true, showSystemUi = false)
 fun SplashScreenPreview(){
-    SplashScreen()
-}*/
+    val navController = rememberNavController()
+    SplashScreen(navController = navController)
+}
 
-annotation class Splash

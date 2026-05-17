@@ -4,19 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.aerosj.myapplication.ui.screens.PokemonScreen
-import com.aerosj.myapplication.ui.screens.SignIn
-import com.aerosj.myapplication.ui.screens.SignInScreen
-import com.aerosj.myapplication.ui.screens.SignUp
-import com.aerosj.myapplication.ui.screens.SignUpScreen
-import com.aerosj.myapplication.ui.screens.Splash
-import com.aerosj.myapplication.ui.screens.SplashScreen
+import com.aerosj.myapplication.ui.screens.*
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
+
     NavHost(
         navController = navController,
-        startDestination = "pokemons"
+        startDestination = "splash"
     ) {
         composable("pokemons") {
             PokemonScreen(navController)
