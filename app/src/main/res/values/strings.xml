@@ -2,20 +2,19 @@
     <string name="app_name">PokeDex</string>
     <string name="hihigh_logo">hihighLogo</string>
 
-    <string name="signUp_title">Create  Account</string>
-    <string name="signIn_title">Welcome Back</string>
+    <string name="signUp_title">Inicia sesión</string>
+    <string name="signIn_title">Registrate</string>
 
-    <string name="signUp_name_label">Full Name</string>
-    <string name="signUp_email_label">Email Address</string>
-    <string name="signUp_pass_label">Password</string>
-    <string name="signUp_confPass_label">Confirm Password</string>
+    <string name="signUp_name_label">Nombre</string>
+    <string name="signUp_email_label">Correo</string>
+    <string name="signUp_pass_label">Contraseña</string>
+    <string name="signUp_confPass_label">Confirma tu contraseña</string>
 
-    <string name="signIn_details">Please sign in entering the next details</string>
-    <string name="signIn_email_label">Email</string>
-    <string name="signIn_forgot_label">Forgot Password?</string>
-    <string name="signIn_button">Sign In</string>
-    <string name="signIn_account_label">Don\'t have an account?</string>
-    <string name="signUp_button">Sign Up</string>
+    <string name="signIn_email_label">Correo</string>
+    <string name="signIn_button">Iniciar Sesión</string>
+    <string name="signIn_account_label">No tienes cuenta?</string>
+    <string name="signUp_account_label">Ya tienes cuenta?</string>
+    <string name="signUp_button">Registrarse</string>
 
-    <string name="splash_text">Airlines</string>
+    <string name="splash_text">POKEDEX</string>
 </resources>

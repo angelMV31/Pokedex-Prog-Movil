@@ -70,4 +70,7 @@ dependencies {
 
     //Cargar imagenes de internet
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // Cargar iconos
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 }
