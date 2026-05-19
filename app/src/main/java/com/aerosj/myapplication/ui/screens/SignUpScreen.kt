@@ -7,12 +7,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,10 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aerosj.myapplication.R
 import com.aerosj.myapplication.ui.components.*
+import com.aerosj.myapplication.viewmodel.AuthState
+import com.aerosj.myapplication.viewmodel.AuthViewModel
 
 
 @Composable
@@ -35,6 +44,17 @@ fun SignUpScreen(navController: NavHostController) {
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
     val confirmValue = remember { mutableStateOf("") }
+    val viewModel: AuthViewModel = viewModel()
+    val authValue by viewModel.authState.collectAsState()
+
+    LaunchedEffect(authValue) {
+        if (authValue is AuthState.Success) {
+            navController.navigate("pokemons") {
+                popUpTo("signup") { inclusive = true }
+            }
+            viewModel.resetState()
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -65,7 +85,8 @@ fun SignUpScreen(navController: NavHostController) {
                 colorResource(R.color.white),
                 { nameValue.value = it },
                 "",
-                false)
+                false
+            )
 
             CustomInput(
                 emailValue.value,
@@ -75,7 +96,8 @@ fun SignUpScreen(navController: NavHostController) {
                 colorResource(R.color.white),
                 { emailValue.value = it },
                 "",
-                false)
+                false
+            )
 
             CustomInput(
                 passwordValue.value,
@@ -85,7 +107,8 @@ fun SignUpScreen(navController: NavHostController) {
                 colorResource(R.color.white),
                 { passwordValue.value = it },
                 "",
-                true)
+                true
+            )
 
             CustomInput(
                 confirmValue.value,
@@ -95,14 +118,33 @@ fun SignUpScreen(navController: NavHostController) {
                 colorResource(R.color.white),
                 { confirmValue.value = it },
                 "",
-                true)
+                true
+            )
+
+            if (authValue is AuthState.Error) {
+                Text(
+                    text = (authValue as AuthState.Error).message,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
-            CustomButton(
-                stringResource(R.string.signUp_button),
-                colorResource(R.color.white),
-                colorResource(R.color.pokedex_red)
-            ) {navController.navigate("pokemons")}
+
+            if (authValue is AuthState.Loading) {
+                CircularProgressIndicator(color = Color(0xFFE53935))
+            } else {
+                    CustomButton(
+                        stringResource(R.string.signUp_button),
+                        colorResource(R.color.white),
+                        colorResource(R.color.pokedex_red)
+                    ) {
+                        if (passwordValue.value == confirmValue.value) {
+                            viewModel.register(emailValue.value, passwordValue.value)
+                        }
+                    }
+                }
 
             Spacer(modifier = Modifier.height(20.dp))
             Row (

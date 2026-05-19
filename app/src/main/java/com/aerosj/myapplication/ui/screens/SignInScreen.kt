@@ -20,17 +20,39 @@ import com.aerosj.myapplication.R
 import com.aerosj.myapplication.ui.components.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.aerosj.myapplication.viewmodel.AuthViewModel
+import com.aerosj.myapplication.viewmodel.AuthState
+//import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.AuthState
 
 @Composable
 fun SignInScreen(navController: NavHostController) {
 
     val emailValue = remember { mutableStateOf("") }
     val passwordValue = remember { mutableStateOf("") }
+    val viewModel: AuthViewModel = viewModel()
+    val authValue by viewModel.authState.collectAsState()
+
+    //Se dirige hacia los Pokemons si el login se realiza con exito
+    LaunchedEffect(authValue) {
+        if (authValue is AuthState.Success) {
+            navController.navigate("pokemons") {
+                popUpTo("signin") { inclusive = true }
+            }
+            viewModel.resetState()
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -84,11 +106,26 @@ fun SignInScreen(navController: NavHostController) {
                 "",
                 true)
 
-            CustomButton(
-                stringResource(R.string.signIn_button),
-                colorResource(R.color.white),
-                colorResource(R.color.pokedex_red)
-            ) {navController.navigate("pokemons")}
+            // Mensaje de error
+            if (authValue is AuthState.Error) {
+                Text(
+                    text = (authValue as AuthState.Error).message,
+                    color = Color.Red,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+
+            // Loading o botón
+            if (authValue is AuthState.Loading) {
+                CircularProgressIndicator(color = Color(0xFFE53935))
+            } else {
+                CustomButton(
+                    stringResource(R.string.signIn_button),
+                    colorResource(R.color.white),
+                    colorResource(R.color.pokedex_red)
+                ) { viewModel.login(emailValue.value, passwordValue.value) }
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
 

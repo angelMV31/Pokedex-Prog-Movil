@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "592902861626",
+    "project_id": "pokedexapp-94467",
+    "storage_bucket": "pokedexapp-94467.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592902861626:android:238672d4094005938a1603",
+        "android_client_info": {
+          "package_name": "com.aerosj.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHTflW7ihSvgiAnIKb9DTpD-l9b6p4-ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
