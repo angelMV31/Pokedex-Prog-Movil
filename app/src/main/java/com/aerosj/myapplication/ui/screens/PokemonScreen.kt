@@ -21,6 +21,10 @@ import com.aerosj.myapplication.ui.components.Pokemon
 import com.aerosj.myapplication.viewmodel.PokemonViewModel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,12 +34,32 @@ fun PokemonScreen(
     {
 
     val listaPokemon = viewModel.pokemonList
+    val searchQuery = viewModel.searchQuery
+    var mostrarBuscador by remember { mutableStateOf(false) }  // controla si se ve el campo
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                    if (mostrarBuscador){
+                        // Campo de búsqueda
+                        TextField(
+                            value = searchQuery,
+                            onValueChange = { viewModel.onSearchTextChange(it) },
+                            placeholder = { Text("Nombre o número...") },
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    else {
+                        Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                    }
                 },
                 navigationIcon = {
                     Icon(
@@ -46,8 +70,14 @@ fun PokemonScreen(
                     )
                 },
                 actions = {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Default.Search, contentDescription = "Buscar")
+                    IconButton(onClick = {
+                        mostrarBuscador = !mostrarBuscador
+                        if (!mostrarBuscador) viewModel.onSearchTextChange("")
+                    }) {
+                        Icon(
+                            imageVector = if (mostrarBuscador) Icons.Default.Close else Icons.Default.Search,
+                            contentDescription = "Buscar"
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -100,10 +130,10 @@ fun PokemonScreen(
                     .align(Alignment.BottomCenter)
             ) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
+                    columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(8.dp)
+                    contentPadding = PaddingValues(18.dp)
                 ) {
                     items(listaPokemon) { pokemon ->
                         Pokemon(pokemon = pokemon)

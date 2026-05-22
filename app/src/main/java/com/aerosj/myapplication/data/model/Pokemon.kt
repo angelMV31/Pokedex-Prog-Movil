@@ -14,6 +14,8 @@ data class PokemonRespuesta(
 )
 
 data class PokemonDetalles(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("name")
     val nombre: String,
     @SerializedName("sprites")

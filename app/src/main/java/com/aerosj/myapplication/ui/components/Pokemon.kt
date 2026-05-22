@@ -3,6 +3,9 @@ package com.aerosj.myapplication.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,15 +23,27 @@ import com.aerosj.myapplication.data.model.PokemonSprite
 @Composable
 fun Pokemon(pokemon: PokemonDetalles){
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxWidth()
             .padding(8.dp)
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(15.dp))
             .background(Color(0xfff5f5f5))
-            .height(50.dp)
+            .width(10.dp)
     ) {
+2
+        // Estrella arriba a la derecha
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Icon(
+                imageVector = Icons.Default.StarBorder,
+                contentDescription = "Favorito",
+                tint = Color.Gray,
+                modifier = Modifier
+                    .size(20.dp)
+                    .align(Alignment.TopEnd)
+            )
+        }
+
         AsyncImage(
             model = pokemon.sprite.frente,
             contentDescription = pokemon.nombre,
@@ -36,6 +51,14 @@ fun Pokemon(pokemon: PokemonDetalles){
         )
         Spacer(modifier = Modifier.width(16.dp))
 
+        //Numero
+        Text(
+            text = "N.: ${pokemon.id.toString().padStart(4, '0')}",
+            fontSize = 11.sp,
+            color = Color.Gray
+        )
+
+        //Nombre
         Text(
             text = pokemon.nombre,
             fontSize = 18.sp,
@@ -45,7 +68,7 @@ fun Pokemon(pokemon: PokemonDetalles){
     }
 }
 
-@Composable
+/*@Composable
 @Preview(showBackground = true)
 fun PokemonPreview(){
 
@@ -56,4 +79,4 @@ fun PokemonPreview(){
         )
     )
     Pokemon(pokemon = pokemonPrueba)
-}
+}*/
