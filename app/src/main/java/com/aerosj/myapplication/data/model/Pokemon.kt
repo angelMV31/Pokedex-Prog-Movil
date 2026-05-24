@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 data class PokemonList(
     @SerializedName("results")
-    val pokemons: List<PokemonRespuesta>
+    val pokemons: List<PokemonAnswer>
 )
 
-data class PokemonRespuesta(
+data class PokemonAnswer(
     @SerializedName("name")
     val nombre: String,
     val url: String
 )
 
-data class PokemonDetalles(
+data class PokemonDetails(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")

@@ -1,5 +1,6 @@
 package com.aerosj.myapplication.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -25,6 +26,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.painterResource
+import com.aerosj.myapplication.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +43,9 @@ fun PokemonScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+                modifier = Modifier
+                    .padding(10.dp),
+
                 title = {
                     if (mostrarBuscador){
                         // Campo de búsqueda
@@ -61,18 +67,25 @@ fun PokemonScreen(
                         Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 22.sp)
                     }
                 },
+
                 navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Home,
-                        contentDescription = "Pokeball",
-                        tint = Color(0xFFE53935),
-                        modifier = Modifier.padding(start = 12.dp).size(32.dp)
+                    Image(
+                        painter = painterResource(id = R.drawable.pokedex_logo),
+                        contentDescription = "Pokedex",
+                        modifier = Modifier
+                            .size(32.dp)
                     )
                 },
+
                 actions = {
                     IconButton(onClick = {
-                        mostrarBuscador = !mostrarBuscador
-                        if (!mostrarBuscador) viewModel.onSearchTextChange("")
+                        if (mostrarBuscador)
+                            mostrarBuscador = false
+                        else
+                            mostrarBuscador = true
+
+                        if (!mostrarBuscador)
+                            viewModel.onSearchTextChange("")
                     }) {
                         Icon(
                             imageVector = if (mostrarBuscador) Icons.Default.Close else Icons.Default.Search,
@@ -80,6 +93,7 @@ fun PokemonScreen(
                         )
                     }
                 },
+
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.White
                 )
@@ -94,13 +108,13 @@ fun PokemonScreen(
                 )
                 NavigationBarItem(
                     selected = false, onClick = { },
-                    icon = { Icon(Icons.Default.Star, contentDescription = "Fav") },
-                    label = { Text("Fav") }
+                    icon = { Icon(Icons.Default.Star, contentDescription = "Favorite") },
+                    label = { Text("Favorite") }
                 )
                 NavigationBarItem(
                     selected = false, onClick = { },
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Users") },
-                    label = { Text("Users") }
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Account") },
+                    label = { Text("Account") }
                 )
             }
         }
@@ -109,19 +123,9 @@ fun PokemonScreen(
         Box(
             modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xffff0000))
+            .background(Color.White)
             .padding(innerPadding)
         ) {
-            /*Text(
-            text = "Pokedex Kanto",
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp)
-        )*/
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(14.dp))
@@ -130,9 +134,9 @@ fun PokemonScreen(
                     .align(Alignment.BottomCenter)
             ) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    columns = GridCells.Fixed(3),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     contentPadding = PaddingValues(18.dp)
                 ) {
                     items(listaPokemon) { pokemon ->

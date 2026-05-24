@@ -47,7 +47,7 @@ fun SplashScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.pokedexlogo),
+                painter = painterResource(id = R.drawable.pokedex_logo),
                 contentDescription = stringResource(R.string.hihigh_logo),
                 modifier = Modifier.size(250.dp)
                 //colorFilter = ColorFilter.tint(colorResource(R.color.black))

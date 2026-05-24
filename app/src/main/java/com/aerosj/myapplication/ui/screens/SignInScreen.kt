@@ -68,21 +68,10 @@ fun SignInScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.pokedexlogo),
+                painter = painterResource(id = R.drawable.pokedex_logo),
                 contentDescription = stringResource(R.string.signIn_title),
                 modifier = Modifier.size(100.dp)
-                //colorFilter = ColorFilter.tint(colorResource(R.color.black))
             )
-
-            /*BasicText(
-                text = stringResource(R.string.signIn_details),
-                style = TextStyle(
-                    color = colorResource(R.color.input_text_color),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium
-                ),
-
-            )*/
 
             Spacer(modifier = Modifier.height(30.dp))
 

@@ -61,7 +61,7 @@ fun CustomInput(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp)
+                        .height(55.dp)
                         .padding(4.dp)
                         .clip(RoundedCornerShape(size = 8.dp))
                         .border(width = 2.dp, color = borderColor, shape = RoundedCornerShape(8.dp))

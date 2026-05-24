@@ -1,7 +1,7 @@
 package com.aerosj.myapplication.data.remote
 
 import com.aerosj.myapplication.data.model.PokemonList
-import com.aerosj.myapplication.data.model.PokemonDetalles
+import com.aerosj.myapplication.data.model.PokemonDetails
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -10,5 +10,5 @@ interface ApiService {
     suspend fun get151Pokemon(): PokemonList
 
     @GET("pokemon/{name}")
-    suspend fun getPokemonDetalle(@Path("name") name: String): PokemonDetalles
+    suspend fun getPokemonDetails(@Path("name") name: String): PokemonDetails
 }
