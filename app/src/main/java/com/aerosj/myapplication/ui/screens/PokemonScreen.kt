@@ -33,7 +33,7 @@ import com.aerosj.myapplication.R
 @Composable
 fun PokemonScreen(
     navHostController: NavHostController,
-    viewModel: PokemonViewModel = viewModel())
+    viewModel: PokemonViewModel)
     {
 
     val listaPokemon = viewModel.pokemonList
@@ -107,12 +107,12 @@ fun PokemonScreen(
                     label = { Text("Home") }
                 )
                 NavigationBarItem(
-                    selected = false, onClick = { },
+                    selected = false, onClick = {navHostController.navigate("favoritos")},
                     icon = { Icon(Icons.Default.Star, contentDescription = "Favorite") },
                     label = { Text("Favorite") }
                 )
                 NavigationBarItem(
-                    selected = false, onClick = { },
+                    selected = false, onClick = {navHostController.navigate("usuario")},
                     icon = { Icon(Icons.Default.Person, contentDescription = "Account") },
                     label = { Text("Account") }
                 )
@@ -140,7 +140,7 @@ fun PokemonScreen(
                     contentPadding = PaddingValues(18.dp)
                 ) {
                     items(listaPokemon) { pokemon ->
-                        Pokemon(pokemon = pokemon)
+                        Pokemon(pokemon = pokemon, viewModel = viewModel)
                     }
                 }
             }

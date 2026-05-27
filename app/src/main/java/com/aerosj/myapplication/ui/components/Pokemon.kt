@@ -26,14 +26,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.aerosj.myapplication.R
 import com.aerosj.myapplication.data.model.PokemonDetails
+import com.aerosj.myapplication.viewmodel.PokemonViewModel
 
 @Composable
-fun Pokemon(pokemon: PokemonDetails){
+fun Pokemon(pokemon: PokemonDetails, viewModel: PokemonViewModel){
 
-    var esCartaFavorita by remember { mutableStateOf(false) }  // controla si la carta es favorita
+    val esCartaFavorita = viewModel.esFavorito(pokemon)
+    //var esCartaFavorita by remember { mutableStateOf(false) }  // controla si la carta es favorita
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,7 +65,7 @@ fun Pokemon(pokemon: PokemonDetails){
                     .align(Alignment.TopEnd)
                     .offset(x = (-6).dp, y = 6.dp) // Colocar un poco hacia adentro
                     .clickable(onClick = {
-                        esCartaFavorita = !esCartaFavorita
+                        viewModel.toggleFavorito(pokemon)
                     })
             )
 

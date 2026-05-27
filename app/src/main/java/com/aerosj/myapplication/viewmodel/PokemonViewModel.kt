@@ -53,4 +53,19 @@ class PokemonViewModel: ViewModel() {
             }
         }
     }
+
+    var favoritosList by mutableStateOf<List<PokemonDetails>>(emptyList())
+        private set
+
+    fun toggleFavorito(pokemon: PokemonDetails) {
+        favoritosList = if (favoritosList.contains(pokemon)) {
+            favoritosList - pokemon
+        } else {
+            favoritosList + pokemon
+        }
+    }
+
+    fun esFavorito(pokemon: PokemonDetails): Boolean {
+        return favoritosList.contains(pokemon)
+    }
 }
