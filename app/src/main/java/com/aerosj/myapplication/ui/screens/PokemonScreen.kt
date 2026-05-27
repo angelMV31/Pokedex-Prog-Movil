@@ -140,7 +140,11 @@ fun PokemonScreen(
                     contentPadding = PaddingValues(18.dp)
                 ) {
                     items(listaPokemon) { pokemon ->
-                        Pokemon(pokemon = pokemon, viewModel = viewModel)
+                        Pokemon(
+                            pokemon = pokemon,
+                            viewModel = viewModel,
+                            onClick = { navHostController.navigate("detalle/${pokemon.nombre}") }
+                        )
                     }
                 }
             }

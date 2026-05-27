@@ -33,7 +33,7 @@ import com.aerosj.myapplication.data.model.PokemonDetails
 import com.aerosj.myapplication.viewmodel.PokemonViewModel
 
 @Composable
-fun Pokemon(pokemon: PokemonDetails, viewModel: PokemonViewModel){
+fun Pokemon(pokemon: PokemonDetails, viewModel: PokemonViewModel, onClick: () -> Unit){
 
     val esCartaFavorita = viewModel.esFavorito(pokemon)
     //var esCartaFavorita by remember { mutableStateOf(false) }  // controla si la carta es favorita
@@ -41,6 +41,7 @@ fun Pokemon(pokemon: PokemonDetails, viewModel: PokemonViewModel){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
+            .clickable { onClick() }
             .width(140.dp)
             .clip(RoundedCornerShape(16.dp))
             .border(2.dp, Color.Black, RoundedCornerShape(16.dp))
