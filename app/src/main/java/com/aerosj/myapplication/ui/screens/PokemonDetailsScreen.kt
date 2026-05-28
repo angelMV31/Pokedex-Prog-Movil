@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.aerosj.myapplication.ui.components.PokedexTopBar
 import com.aerosj.myapplication.viewmodel.PokemonViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,25 +35,7 @@ fun PokemonDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(id = R.drawable.pokedex_logo),
-                            contentDescription = "Logo Pokedex",
-                            modifier = Modifier.size(40.dp)
-                        )
-                        Spacer(modifier = Modifier.width(55.dp))
-                        Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 40.sp)
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Regresar")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
-            )
+            PokedexTopBar(onBackClick = { navController.popBackStack() })
         }
     ) { innerPadding ->
         if (pokemon != null) {

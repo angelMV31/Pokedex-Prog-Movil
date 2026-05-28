@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.aerosj.myapplication.R
 import com.aerosj.myapplication.data.model.PokemonDetails
+import com.aerosj.myapplication.ui.components.PokedexTopBar
 import com.aerosj.myapplication.viewmodel.PokemonViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,25 +36,7 @@ fun FavoritosScreen(navController: NavController, viewModel: PokemonViewModel) {
 //Parte de arriba el topbar
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(id = R.drawable.pokedex_logo),
-                            contentDescription = "Logo Pokedex",
-                            modifier = Modifier.size(32.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
-            )
+            PokedexTopBar(onBackClick = { navController.popBackStack() })
         }
     ) { innerPadding ->
         if (favoritos.isEmpty()) {

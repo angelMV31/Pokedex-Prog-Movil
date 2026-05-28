@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aerosj.myapplication.R
+import com.aerosj.myapplication.ui.components.PokedexTopBar
 import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,14 +29,8 @@ fun UsuarioScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Usuario", fontWeight = FontWeight.Bold) },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Regresar")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
+            PokedexTopBar(
+                onBackClick = { navController.popBackStack() }
             )
         }
     ) { innerPadding ->
