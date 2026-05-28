@@ -141,7 +141,7 @@ fun SignUpScreen(navController: NavHostController) {
                         colorResource(R.color.pokedex_red)
                     ) {
                         if (passwordValue.value == confirmValue.value) {
-                            viewModel.register(emailValue.value, passwordValue.value)
+                            viewModel.register(nameValue.value, emailValue.value, passwordValue.value)
                         }
                     }
                 }
