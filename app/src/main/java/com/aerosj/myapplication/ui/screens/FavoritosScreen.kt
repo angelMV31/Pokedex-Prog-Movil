@@ -75,7 +75,7 @@ fun FavoritosScreen(navController: NavController, viewModel: PokemonViewModel) {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(favoritos) { pokemon ->
-                    FavoritoCard(pokemon, viewModel)
+                    FavoritoCard(pokemon, viewModel, navController)
                 }
             }
         }
@@ -83,13 +83,16 @@ fun FavoritosScreen(navController: NavController, viewModel: PokemonViewModel) {
 }
 
 @Composable
-fun FavoritoCard(pokemon: PokemonDetails, viewModel: PokemonViewModel) {
+fun FavoritoCard(pokemon: PokemonDetails, viewModel: PokemonViewModel, navController: NavController) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .border(1.dp, Color.Black, RoundedCornerShape(12.dp))
+            .clickable {
+                navController.navigate("detalle/${pokemon.nombre}")
+            }
             .background(colorResource(R.color.pokedex_red))
             .padding(12.dp)
     ) {
