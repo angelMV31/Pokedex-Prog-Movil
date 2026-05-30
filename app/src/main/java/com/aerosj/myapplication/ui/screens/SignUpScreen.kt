@@ -70,7 +70,7 @@ fun SignUpScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.pokedexlogo),
+                painter = painterResource(id = R.drawable.pokedex_logo),
                 contentDescription = stringResource(R.string.signIn_title),
                 modifier = Modifier.size(100.dp)
                 //colorFilter = ColorFilter.tint(colorResource(R.color.black))
@@ -141,7 +141,7 @@ fun SignUpScreen(navController: NavHostController) {
                         colorResource(R.color.pokedex_red)
                     ) {
                         if (passwordValue.value == confirmValue.value) {
-                            viewModel.register(emailValue.value, passwordValue.value)
+                            viewModel.register(nameValue.value, emailValue.value, passwordValue.value)
                         }
                     }
                 }

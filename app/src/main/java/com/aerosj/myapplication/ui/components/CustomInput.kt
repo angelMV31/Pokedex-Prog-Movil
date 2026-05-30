@@ -53,7 +53,7 @@ fun CustomInput(
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            textStyle = TextStyle(color = textColor, fontSize = 16.sp),
+            textStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
             visualTransformation = if (isPassword) PasswordVisualTransformation()
             else VisualTransformation.None,
 
@@ -61,7 +61,7 @@ fun CustomInput(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp)
+                        .height(55.dp)
                         .padding(4.dp)
                         .clip(RoundedCornerShape(size = 8.dp))
                         .border(width = 2.dp, color = borderColor, shape = RoundedCornerShape(8.dp))
@@ -71,7 +71,7 @@ fun CustomInput(
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
-                            style = TextStyle(color = textColor, fontSize = 16.sp),
+                            style = TextStyle(color = Color.Black.copy(alpha = 0.6f), fontSize = 16.sp),
                             modifier = Modifier.padding(start = 12.dp)
                         )
                     }

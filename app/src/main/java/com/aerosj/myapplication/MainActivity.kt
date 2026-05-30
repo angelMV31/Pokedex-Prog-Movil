@@ -17,10 +17,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            //MyApplicationTheme {
-            //AirportAppNavigation()
-            //  PokemonScreen()
-            //}
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 Surface(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
                     val navController = rememberNavController()

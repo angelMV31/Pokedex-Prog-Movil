@@ -1,5 +1,6 @@
 package com.aerosj.myapplication.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -21,35 +22,78 @@ import com.aerosj.myapplication.ui.components.Pokemon
 import com.aerosj.myapplication.viewmodel.PokemonViewModel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.painterResource
+import com.aerosj.myapplication.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonScreen(
     navHostController: NavHostController,
-    viewModel: PokemonViewModel = viewModel())
+    viewModel: PokemonViewModel)
     {
 
     val listaPokemon = viewModel.pokemonList
+    val searchQuery = viewModel.searchQuery
+    var mostrarBuscador by remember { mutableStateOf(false) }  // controla si se ve el campo
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+                modifier = Modifier
+                    .padding(10.dp),
+
                 title = {
-                    Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                },
-                navigationIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Home,
-                        contentDescription = "Pokeball",
-                        tint = Color(0xFFE53935),
-                        modifier = Modifier.padding(start = 12.dp).size(32.dp)
-                    )
-                },
-                actions = {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Default.Search, contentDescription = "Buscar")
+                    if (mostrarBuscador){
+                        // Campo de búsqueda
+                        TextField(
+                            value = searchQuery,
+                            onValueChange = { viewModel.onSearchTextChange(it) },
+                            placeholder = { Text("Nombre o número...") },
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    else {
+                        Text("Pokedex", fontWeight = FontWeight.Bold, fontSize = 22.sp)
                     }
                 },
+
+                navigationIcon = {
+                    Image(
+                        painter = painterResource(id = R.drawable.pokedex_logo),
+                        contentDescription = "Pokedex",
+                        modifier = Modifier
+                            .size(32.dp)
+                    )
+                },
+
+                actions = {
+                    IconButton(onClick = {
+                        if (mostrarBuscador)
+                            mostrarBuscador = false
+                        else
+                            mostrarBuscador = true
+
+                        if (!mostrarBuscador)
+                            viewModel.onSearchTextChange("")
+                    }) {
+                        Icon(
+                            imageVector = if (mostrarBuscador) Icons.Default.Close else Icons.Default.Search,
+                            contentDescription = "Buscar"
+                        )
+                    }
+                },
+
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.White
                 )
@@ -63,14 +107,14 @@ fun PokemonScreen(
                     label = { Text("Home") }
                 )
                 NavigationBarItem(
-                    selected = false, onClick = { },
-                    icon = { Icon(Icons.Default.Star, contentDescription = "Fav") },
-                    label = { Text("Fav") }
+                    selected = false, onClick = {navHostController.navigate("favoritos")},
+                    icon = { Icon(Icons.Default.Star, contentDescription = "Favorite") },
+                    label = { Text("Favorite") }
                 )
                 NavigationBarItem(
-                    selected = false, onClick = { },
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Users") },
-                    label = { Text("Users") }
+                    selected = false, onClick = {navHostController.navigate("usuario")},
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Account") },
+                    label = { Text("Account") }
                 )
             }
         }
@@ -79,19 +123,9 @@ fun PokemonScreen(
         Box(
             modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xffff0000))
+            .background(Color.White)
             .padding(innerPadding)
         ) {
-            /*Text(
-            text = "Pokedex Kanto",
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp)
-        )*/
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(14.dp))
@@ -101,12 +135,16 @@ fun PokemonScreen(
             ) {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(3),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(18.dp)
                 ) {
                     items(listaPokemon) { pokemon ->
-                        Pokemon(pokemon = pokemon)
+                        Pokemon(
+                            pokemon = pokemon,
+                            viewModel = viewModel,
+                            onClick = { navHostController.navigate("detalle/${pokemon.nombre}") }
+                        )
                     }
                 }
             }
