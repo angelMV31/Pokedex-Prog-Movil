@@ -123,7 +123,7 @@ fun SignUpScreen(navController: NavHostController) {
 
             if (authValue is AuthState.Error) {
                 Text(
-                    text = (authValue as AuthState.Error).message,
+                    text = "Correo utilizado",
                     color = Color.Red,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(8.dp)

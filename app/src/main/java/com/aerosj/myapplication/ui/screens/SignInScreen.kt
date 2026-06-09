@@ -98,7 +98,7 @@ fun SignInScreen(navController: NavHostController) {
             // Mensaje de error
             if (authValue is AuthState.Error) {
                 Text(
-                    text = (authValue as AuthState.Error).message,
+                    text = "Credenciales incorrectas",
                     color = Color.Red,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(8.dp)
