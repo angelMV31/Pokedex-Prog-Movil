@@ -24,6 +24,7 @@ fun CustomButton(text: String, textColor: Color, backgroundColor: Color, onClick
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 8.dp)
             .height(55.dp)
             .clip(RoundedCornerShape(size = 12.dp))
             .background(backgroundColor)
