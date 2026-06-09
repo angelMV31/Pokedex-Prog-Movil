@@ -68,4 +68,8 @@ class PokemonViewModel: ViewModel() {
     fun esFavorito(pokemon: PokemonDetails): Boolean {
         return favoritosList.contains(pokemon)
     }
+
+    fun limpiarFavoritos() {
+        favoritosList = emptyList()
+    }
 }
