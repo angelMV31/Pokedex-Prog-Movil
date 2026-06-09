@@ -34,11 +34,11 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable("favoritos") {
-            FavoritosScreen(navController, pokemonViewModel)
+            FavoritesScreen(navController, pokemonViewModel)
         }
 
         composable("usuario") {
-            UsuarioScreen(navController)
+            UserScreen(navController, pokemonViewModel)
         }
         composable("detalle/{pokemonNombre}") { backStackEntry ->
             val pokemonNombre = backStackEntry.arguments?.getString("pokemonNombre")

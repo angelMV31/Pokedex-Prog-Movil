@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -20,11 +19,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aerosj.myapplication.R
 import com.aerosj.myapplication.ui.components.PokedexTopBar
+import com.aerosj.myapplication.viewmodel.PokemonViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UsuarioScreen(navController: NavController) {
+fun UserScreen(navController: NavController, viewModel: PokemonViewModel) {
     val user = FirebaseAuth.getInstance().currentUser
 
     Scaffold(
@@ -78,8 +78,9 @@ fun UsuarioScreen(navController: NavController) {
             Button(
                 onClick = {
                     FirebaseAuth.getInstance().signOut()
+                    viewModel.limpiarFavoritos()
                     navController.navigate("signin") {
-                        popUpTo(0) // limpia el back stack
+                        popUpTo(0){inclusive = true} // limpia el back stack
                     }
                 },
                 modifier = Modifier
